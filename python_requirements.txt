@@ -1,0 +1,16 @@
+idna==2.10
+bison==0.1.2
+PySerial==3.4
+PyQt5-sip==4.19.19
+trimesh==2.38.29
+PyCollada==0.7.1
+zeroconf==0.23.0
+numpy-stl==2.10.1
+appdirs==1.4.4
+packaging==19.0
+requests==2.24.0
+comtypes==1.1.7
+cx_Freeze==5.0.2
+cffi==1.14.0
+cryptography==3.0
+pycparser==2.20
