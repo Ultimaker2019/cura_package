@@ -11,7 +11,8 @@ if exist libArcus (
 	git clone "https://github.com/Ultimaker2019/libArcus"
 )
 cd libArcus
-git checkout origin/%BUILD_VERSION%
+git pull
+git checkout %BUILD_VERSION%
 rd/s/q %BUILD_PATH%\libArcus
 if not exist %BUILD_PATH%\libArcus (
 	mkdir %BUILD_PATH%\libArcus

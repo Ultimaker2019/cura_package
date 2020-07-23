@@ -4,7 +4,10 @@ set COMPILER_PATH=E:\Ultimaker\compiler_tools
 set PYTHONPATH=E:\Ultimaker\compiler_tools\python-3.5.9\amd64
 set CUR_PATH=%cd%
 set SRC_PATH=%CUR_PATH%\..\..\sources
-set BUILD_VERSION=4.4
+set BUILD_VERSION=4.4.0_MakerPi
+set CMAKE_DEFINES=-DCURA_VERSION_MAJOR=4
+set CMAKE_DEFINES=%CMAKE_DEFINES% -DCURA_VERSION_MINOR=4
+set CMAKE_DEFINES=%CMAKE_DEFINES% -DCURA_VERSION_PATCH=0
 
 set PATH=C:\Program Files\CMake\bin;
 set PATH=C:\Program Files (x86)\NSIS;%PATH%
