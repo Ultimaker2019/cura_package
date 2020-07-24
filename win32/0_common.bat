@@ -1,7 +1,7 @@
 echo off
-set SOFTWARE_PATH=E:\Ultimaker\software
-set COMPILER_PATH=E:\Ultimaker\compiler_tools
-set PYTHONPATH=E:\Ultimaker\compiler_tools\python-3.5.9\win32
+set SOFTWARE_PATH=E:\software
+set COMPILER_PATH=E:\compiler_tools
+set PYTHONPATH=E:\compiler_tools\python-3.5.9\win32
 set CUR_PATH=%cd%
 set SRC_PATH=%CUR_PATH%\..\..\sources
 set BUILD_VERSION=4.6.2_MakerPi

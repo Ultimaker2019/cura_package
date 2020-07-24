@@ -1,4 +1,4 @@
-call 0_common.bat
+call 0_common.bat msvc
 
 python %SOFTWARE_PATH%\python\get-pip.py
 
