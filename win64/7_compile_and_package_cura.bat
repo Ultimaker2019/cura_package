@@ -15,8 +15,8 @@ git pull
 git checkout %BUILD_VERSION%
 pause
 cd %CUR_PATH%\..\..
-mkdir package\build64
-cd package\build64
+mkdir package\%BUILD_VERSION%_64
+cd package\%BUILD_VERSION%_64
 set PYTHONPATH=%cd%\inst\lib\python3.5\site-packages
 set PATH=%cd%\inst\bin;%PATH%
 set CMAKE_DEFINES=%CMAKE_DEFINES% -DFDMMATERIALS_BRANCH_OR_TAG=%BUILD_VERSION%
