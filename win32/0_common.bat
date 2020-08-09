@@ -1,17 +1,21 @@
 echo off
-set SOFTWARE_PATH=E:\software
-set COMPILER_PATH=E:\compiler_tools
-set PYTHONPATH=E:\compiler_tools\python-3.5.9\win32
+set SOFTWARE_PATH=C:\\Users\\edwar\\OneDrive\\software
+set COMPILER_PATH=C:\Users\edwar\OneDrive\compiler_tools
+set PYTHONPATH=%COMPILER_PATH%\python-3.5.9\win32
 set CUR_PATH=%cd%
-set SRC_PATH=%CUR_PATH%\..\..\sources
-set BUILD_VERSION=4.6.2_MakerPi
+set SRC_PATH=C:\Users\edwar\OneDrive\work\ultimaker\sources
+set BUILD_ROOT_PATH=C:\Users\edwar\OneDrive\work\ultimaker
+set BUILD_VERSION=4.6.2_L-DEVO
+set PACKAGE_PATH=%cd%\..\..\package
 set CMAKE_DEFINES=-DCURA_VERSION_MAJOR=4
 set CMAKE_DEFINES=%CMAKE_DEFINES% -DCURA_VERSION_MINOR=6
 set CMAKE_DEFINES=%CMAKE_DEFINES% -DCURA_VERSION_PATCH=2
 
 set PATH=C:\Program Files\CMake\bin;
-set PATH=C:\Program Files (x86)\NSIS;%PATH%
+set PATH=C:\Program Files (x86)\NSIS3;%PATH%
 set PATH=C:\Program Files\Git\cmd;%PATH%
+set PATH=%COMPILER_PATH%\cygwin64\bin;%PATH%
+set PATH=%COMPILER_PATH%\mingw32\msys\1.0\bin;%PATH%
 set PATH=%PYTHONPATH%;%PATH%
 set PATH=%PYTHONPATH%\Scripts;%PATH%
 set PATH=%PYTHONPATH%\Lib\site-packages;%PATH%
@@ -29,17 +33,17 @@ if /i %1 == msvc     goto msvc
 goto mingw32
 
 :msvc
-set BUILD_PATH=%CUR_PATH%\..\..\build_win32\msvc
-set INSTALL_PATH=%CUR_PATH%\..\..\build_win32\msvc\install
+set BUILD_PATH=%BUILD_ROOT_PATH%\build_win32\msvc
+set INSTALL_PATH=%BUILD_ROOT_PATH%\build_win32\msvc\install
 set PATH=%INSTALL_PATH%\bin;%PATH%
 set PATH=C:\Windows\System32;%PATH%
-set PATH=D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;%PATH%
-call "D:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
+set PATH=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin;%PATH%
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
 goto end
 
 :mingw32
-set BUILD_PATH=%CUR_PATH%\..\..\build_win32\mingw32
-set INSTALL_PATH=%CUR_PATH%\..\..\build_win32\mingw32\install
+set BUILD_PATH=%BUILD_ROOT_PATH%\build_win32\mingw32
+set INSTALL_PATH=%BUILD_ROOT_PATH%\build_win32\mingw32\install
 set PATH=%INSTALL_PATH%\bin;%PATH%
 set PATH=%COMPILER_PATH%\mingw-w64\i686-7.3.0-posix-dwarf-rt_v5-rev0\mingw32\bin;%PATH%
 goto end
