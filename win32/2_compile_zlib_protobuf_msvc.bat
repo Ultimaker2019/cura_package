@@ -44,4 +44,4 @@ cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -DCMAKE_BUILD_TY
 nmake
 nmake install
 
-pause
+

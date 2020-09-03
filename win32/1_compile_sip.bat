@@ -23,4 +23,3 @@ python configure.py --platform win32-msvc2015
 nmake
 nmake install
 
-pause

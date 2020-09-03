@@ -45,4 +45,4 @@ cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"MinGW Makefiles" -DCMAKE_BUILD_TY
 mingw32-make
 mingw32-make install
 
-pause
+

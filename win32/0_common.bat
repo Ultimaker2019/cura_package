@@ -1,15 +1,12 @@
 echo off
-set SOFTWARE_PATH=C:\\Users\\edwar\\OneDrive\\software
-set COMPILER_PATH=C:\Users\edwar\OneDrive\compiler_tools
-set PYTHONPATH=%COMPILER_PATH%\python-3.5.9\win32
-set CUR_PATH=%cd%
-set SRC_PATH=C:\Users\edwar\OneDrive\work\ultimaker\sources
-set BUILD_ROOT_PATH=C:\Users\edwar\OneDrive\work\ultimaker
-set BUILD_VERSION=4.6.2_L-DEVO
-set PACKAGE_PATH=%cd%\..\..\package
-set CMAKE_DEFINES=-DCURA_VERSION_MAJOR=4
-set CMAKE_DEFINES=%CMAKE_DEFINES% -DCURA_VERSION_MINOR=6
-set CMAKE_DEFINES=%CMAKE_DEFINES% -DCURA_VERSION_PATCH=2
+
+set SOFTWARE_PATH=%CURRENT_PAN%\software
+set COMPILER_PATH=%CURRENT_PAN%\compiler_tools
+set PYTHONPATH=%COMPILER_PATH%\%PYTHON_VERSION%\win32
+
+set SRC_PATH=%CURRENT_PAN%\ultimaker\1_sources
+set BUILD_ROOT_PATH=%CURRENT_PAN%\ultimaker\2_dependency
+set PACKAGE_PATH=%CURRENT_PAN%\ultimaker\3_package
 
 set PATH=C:\Program Files\CMake\bin;
 set PATH=C:\Program Files (x86)\NSIS3;%PATH%
