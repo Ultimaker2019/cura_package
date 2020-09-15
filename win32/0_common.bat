@@ -17,8 +17,8 @@ set PATH=%PYTHONPATH%;%PATH%
 set PATH=%PYTHONPATH%\Scripts;%PATH%
 set PATH=%PYTHONPATH%\Lib\site-packages;%PATH%
 
-set TCL_LIBRARY=%PYTHONPATH%\tcl
-set TK_LIBRARY=%PYTHONPATH%\tk
+set TCL_LIBRARY=%PYTHONPATH%\tcl\tcl8.6
+set TK_LIBRARY=%PYTHONPATH%\tcl\tk8.6
 
 REM cryptography by default links to OpenSSL 1.1.0 which has different library
 REM file names, so we need this flag to be able to link to OpenSSL 1.0.2
