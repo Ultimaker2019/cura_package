@@ -8,7 +8,7 @@ appdirs==1.4.4
 packaging==19.0
 requests==2.24.0
 comtypes==1.1.7
-cffi==1.14.3
+cffi==1.14.2
 cryptography==3.0
 pycparser==2.20
 netifaces==0.10.9

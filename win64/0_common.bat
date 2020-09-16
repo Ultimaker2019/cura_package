@@ -1,22 +1,22 @@
 echo off
 
-set SOFTWARE_PATH=%CURRENT_PAN%\software
 set COMPILER_PATH=%CURRENT_PAN%\compiler_tools
-set PYTHONPATH=%COMPILER_PATH%\%PYTHON_VERSION%\amd64
+set PYTHONPATH=%COMPILER_PATH%\python\%PYTHON_VERSION%\amd64
 
 set SRC_PATH=%CURRENT_PAN%\ultimaker\1_sources
 set BUILD_ROOT_PATH=%CURRENT_PAN%\ultimaker\2_dependency
 set PACKAGE_PATH=%CURRENT_PAN%\ultimaker\3_package
 
-set PATH=C:\Program Files\CMake\bin;
-set PATH=C:\Program Files (x86)\NSIS3;%PATH%
-set PATH=C:\Program Files\Git\cmd;%PATH%
+set PATH=C:\Program Files\Git\cmd;
+set PATH=%COMPILER_PATH%\program-files\CMake\bin;%PATH%
+set PATH=%COMPILER_PATH%\program-files\NSIS3;%PATH%
 set PATH=%COMPILER_PATH%\cygwin64\bin;%PATH%
 set PATH=%COMPILER_PATH%\mingw32\msys\1.0\bin;%PATH%
+
+REM python
 set PATH=%PYTHONPATH%;%PATH%
 set PATH=%PYTHONPATH%\Scripts;%PATH%
 set PATH=%PYTHONPATH%\Lib\site-packages;%PATH%
-
 set TCL_LIBRARY=%PYTHONPATH%\tcl\tcl8.6
 set TK_LIBRARY=%PYTHONPATH%\tcl\tk8.6
 
