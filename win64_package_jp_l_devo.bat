@@ -10,14 +10,6 @@ set PYTHON_VERSION=3.7.9
 set CUR_PATH=%cd%
 
 cd %CUR_PATH%
-call 1_compile_sip.bat
-cd %CUR_PATH%
-call 2_compile_zlib_protobuf_msvc
-cd %CUR_PATH%
-call 3_compile_zlib_protobuf_mingw
-cd %CUR_PATH%
-call 4_install_python_third_party_library
-cd %CUR_PATH%
 call 5_compile_cura_python_moudles
 cd %CUR_PATH%
 call 6_compile_cura_dependency

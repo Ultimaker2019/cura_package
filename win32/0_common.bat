@@ -1,6 +1,6 @@
 echo off
 
-set COMPILER_PATH=%CURRENT_PAN%\compiler_tools
+set COMPILER_PATH=E:\compiler_tools
 set PYTHONPATH=%COMPILER_PATH%\python\%PYTHON_VERSION%\win32
 
 set SRC_PATH=%CURRENT_PAN%\ultimaker\1_sources

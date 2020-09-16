@@ -1,5 +1,6 @@
-idna==2.10
+flex==6.14.1
 bison==0.1.2
+idna==2.10
 PySerial==3.4
 PyQt5-sip==4.19.19
 PyCollada==0.7.1
