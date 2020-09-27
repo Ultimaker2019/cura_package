@@ -24,54 +24,69 @@ python configure.py --platform win32-msvc2015
 nmake
 nmake install
 
-REM *********************************************************************
-REM *********************** build pycrypto ******************************
-REM *********************************************************************
-set CL=-FI"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\INCLUDE\stdint.h"
-cd %SRC_PATH%
-echo "pycrypto clone and build..."
-if exist pycrypto (
-	echo "git clone ==> pycrypto already exists"
-    cd pycrypto
-) else (
-	git clone "https://github.com/pycrypto/pycrypto" pycrypto
-	cd pycrypto
-	git checkout --no-track -b B_v2.6.1 v2.6.1 --
+if "%PYTHON_VERSION%"=="3.7.9" (
+
+	REM *********************************************************************
+	REM *********************** build pycrypto ******************************
+	REM *********************************************************************
+	set CL=-FI"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\INCLUDE\stdint.h"
+	cd %SRC_PATH%
+	echo "pycrypto clone and build..."
+	if exist pycrypto (
+		echo "git clone ==> pycrypto already exists"
+		cd pycrypto
+	) else (
+		git clone "https://github.com/pycrypto/pycrypto" pycrypto
+		cd pycrypto
+		git checkout --no-track -b B_v2.6.1 v2.6.1 --
+	)
+	git clean -df
+	python setup.py install
+
+	REM *********************************************************************
+	REM *********************** build cx_Freeze *****************************
+	REM *********************************************************************
+	cd %SRC_PATH%
+	echo "cx_Freeze clone and build..."
+	if exist cx_Freeze (
+		echo "git clone ==> cx_Freeze already exists"
+		cd cx_Freeze
+	) else (
+		git clone "https://github.com/marcelotduarte/cx_Freeze" cx_Freeze
+		cd cx_Freeze
+	REM	git checkout --no-track -b B_v2.6.1 v2.6.1 --
+	)
+	git clean -df
+	python setup.py install
+	pip3 uninstall -y cx-Logging
+	pip3 uninstall -y importlib_metadata
+	pip3 uninstall -y zipp
+	pip3 install cx-Logging==2.2
+	pip3 install importlib_metadata==1.7.0
+	pip3 install zipp==3.1.0
+
+	REM *********************************************************************
+	REM *********************** install whl files ***************************
+	REM *********************************************************************
+	cd %CUR_PATH%
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\PyQt5-5.10-5.10.0-cp35.cp36.cp37-none-win32.whl
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\Shapely-1.7.1-cp37-cp37m-win32.whl
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\numpy-1.19.2+mkl-cp37-cp37m-win32.whl
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\scipy-1.4.1-cp37-cp37m-win32.whl
+) else if "%PYTHON_VERSION%"=="3.5.9" (
+	echo "This is Python3.5.9"
+	pip3 install pycrypto==2.6.1
+	pip3 install cx_Freeze==5.0.2
+
+	REM *********************************************************************
+	REM *********************** install whl files ***************************
+	REM *********************************************************************
+	cd %CUR_PATH%
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\PyQt5-5.10-5.10.0-cp35.cp36.cp37-none-win32.whl
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\Shapely-1.6.4.post2-cp35-cp35m-win32.whl
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\numpy-1.16.6+mkl-cp35-cp35m-win32.whl
+	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\scipy-1.4.1-cp35-cp35m-win32.whl
 )
-git clean -df
-python setup.py install
-
-REM *********************************************************************
-REM *********************** build cx_Freeze *****************************
-REM *********************************************************************
-cd %SRC_PATH%
-echo "cx_Freeze clone and build..."
-if exist cx_Freeze (
-	echo "git clone ==> cx_Freeze already exists"
-    cd cx_Freeze
-) else (
-	git clone "https://github.com/marcelotduarte/cx_Freeze" cx_Freeze
-	cd cx_Freeze
-REM	git checkout --no-track -b B_v2.6.1 v2.6.1 --
-)
-git clean -df
-python setup.py install
-pip3 uninstall -y cx-Logging
-pip3 uninstall -y importlib_metadata
-pip3 uninstall -y zipp
-pip3 install cx-Logging==2.2
-pip3 install importlib_metadata==1.7.0
-pip3 install zipp==3.1.0
-
-REM *********************************************************************
-REM *********************** install whl files ***************************
-REM *********************************************************************
-cd %CUR_PATH%
-pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\PyQt5-5.10-5.10.0-cp35.cp36.cp37-none-win32.whl
-pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\Shapely-1.7.1-cp37-cp37m-win32.whl
-pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\numpy-1.19.2+mkl-cp37-cp37m-win32.whl
-pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\32bit\scipy-1.4.1-cp37-cp37m-win32.whl
-
 pip3 install -r ..\python_requirements.txt
 
 
