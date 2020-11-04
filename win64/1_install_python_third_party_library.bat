@@ -24,55 +24,111 @@ python configure.py --platform win32-msvc2015
 nmake
 nmake install
 
+REM *********************************************************************
+REM *********************** build clipper *******************************
+REM *********************************************************************
+cd %SRC_PATH%
+echo "clipper clone and build..."
+if exist clipper (
+	echo "git clone ==> clipper already exists"
+	cd clipper
+) else (
+	git clone "https://github.com/MakerPi-3D/clipper"
+	cd clipper
+)
+git clean -df
+REM rd/s/q %BUILD_PATH%\clipper
+if not exist %BUILD_PATH%\clipper (
+	mkdir %BUILD_PATH%\clipper
+)
+cd %BUILD_PATH%\clipper
+cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -Wno-dev -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/clipper/cpp
+nmake
+nmake install
+
+REM *********************************************************************
+REM *********************** build nlopt *********************************
+REM *********************************************************************
+cd %SRC_PATH%
+echo "nlopt clone and build..."
+if exist nlopt (
+	echo "git clone ==> nlopt already exists"
+	cd nlopt
+) else (
+	git clone "https://github.com/Ultimaker2019/nlopt"
+	cd nlopt
+)
+git clean -df
+REM rd/s/q %BUILD_PATH%\nlopt
+if not exist %BUILD_PATH%\nlopt (
+	mkdir %BUILD_PATH%\nlopt
+)
+cd %BUILD_PATH%\nlopt
+cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -DBUILD_SHARED_LIBS=OFF -Wno-dev -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/nlopt
+nmake
+nmake install
+
+REM *********************************************************************
+REM *********************** build libnest2d *****************************
+REM *********************************************************************
+set PATH=E:\compiler_tools\boost\msvc14\include\boost-1_69;%PATH%
+set Boost_INCLUDE_DIR=E:\compiler_tools\boost\msvc14\include\boost-1_69
+set CLIPPER_PATH=%INSTALL_PATH%
+
+cd %SRC_PATH%
+echo "libnest2d clone and build..."
+if exist libnest2d (
+	echo "git clone ==> libnest2d already exists"
+	cd libnest2d
+) else (
+	git clone "https://github.com/Ultimaker2019/libnest2d"
+	cd libnest2d
+)
+git clean -df
+REM rd/s/q %BUILD_PATH%\libnest2d
+if not exist %BUILD_PATH%\libnest2d (
+	mkdir %BUILD_PATH%\libnest2d
+)
+cd %BUILD_PATH%\libnest2d
+cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -DBUILD_SHARED_LIBS=OFF -DLIBNEST2D_HEADER_ONLY=OFF -Wno-dev -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/libnest2d
+nmake
+nmake install
+
+REM *********************************************************************
+REM *********************** build pynest2d ******************************
+REM *********************************************************************
+cd %SRC_PATH%
+echo "pynest2d clone and build..."
+if exist pynest2d (
+	echo "git clone ==> pynest2d already exists"
+	cd pynest2d
+) else (
+	git clone "https://github.com/Ultimaker2019/pynest2d"
+	cd pynest2d
+)
+git clean -df
+REM rd/s/q %BUILD_PATH%\pynest2d
+if not exist %BUILD_PATH%\pynest2d (
+	mkdir %BUILD_PATH%\pynest2d
+)
+cd %BUILD_PATH%\pynest2d
+cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH%  -DBOOST_INCLUDEDIR:PATH="%Boost_INCLUDE_DIR%" -G"NMake Makefiles" -Wno-dev -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/pynest2d
+nmake
+nmake install
+
 if "%PYTHON_VERSION%"=="3.7.9" (
-
-	REM *********************************************************************
-	REM *********************** build pycrypto ******************************
-	REM *********************************************************************
-	set CL=-FI"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\INCLUDE\stdint.h"
-	cd %SRC_PATH%
-	echo "pycrypto clone and build..."
-	if exist pycrypto (
-		echo "git clone ==> pycrypto already exists"
-		cd pycrypto
-	) else (
-		git clone "https://github.com/pycrypto/pycrypto" pycrypto
-		cd pycrypto
-		git checkout --no-track -b B_v2.6.1 v2.6.1 --
-	)
-	git clean -df
-	python setup.py install
-
-	REM *********************************************************************
-	REM *********************** build cx_Freeze *****************************
-	REM *********************************************************************
-	cd %SRC_PATH%
-	echo "cx_Freeze clone and build..."
-	if exist cx_Freeze (
-		echo "git clone ==> cx_Freeze already exists"
-		cd cx_Freeze
-	) else (
-		git clone "https://github.com/marcelotduarte/cx_Freeze" cx_Freeze
-		cd cx_Freeze
-	REM	git checkout --no-track -b B_v2.6.1 v2.6.1 --
-	)
-	git clean -df
-	python setup.py install
-	pip3 uninstall -y cx-Logging
-	pip3 uninstall -y importlib_metadata
-	pip3 uninstall -y zipp
-	pip3 install cx-Logging==2.2
-	pip3 install importlib_metadata==1.7.0
-	pip3 install zipp==3.1.0
+	set CL=/FI"c:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\INCLUDE\\stdint.h" %CL%
+	pip3 install pycrypto==2.6.1
+	pip3 install cx_Freeze==6.3
 
 	REM *********************************************************************
 	REM *********************** install whl files ***************************
 	REM *********************************************************************
 	cd %CUR_PATH%
-	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\PyQt5-5.10-5.10.0-cp35.cp36.cp37-none-win_amd64.whl
-	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\Shapely-1.7.1-cp37-cp37m-win_amd64.whl
-	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\numpy-1.19.2+mkl-cp37-cp37m-win_amd64.whl
-	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\scipy-1.4.1-cp37-cp37m-win_amd64.whl
+	pip3 install --no-cache-dir %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\PyQt5-5.10-5.10.0-cp35.cp36.cp37-none-win_amd64.whl
+	pip3 install --no-cache-dir %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\Shapely-1.7.1-cp37-cp37m-win_amd64.whl
+	pip3 install --no-cache-dir %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\numpy-1.19.2+mkl-cp37-cp37m-win_amd64.whl
+	pip3 install --no-cache-dir %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\scipy-1.4.1-cp37-cp37m-win_amd64.whl
 ) else if "%PYTHON_VERSION%"=="3.5.9" (
 	echo "This is Python3.5.9"
 	pip3 install pycrypto==2.6.1
@@ -87,7 +143,7 @@ if "%PYTHON_VERSION%"=="3.7.9" (
 	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\numpy-1.16.6+mkl-cp35-cp35m-win_amd64.whl
 	pip3 install %COMPILER_PATH%\python\%PYTHON_VERSION%-libs\64bit\scipy-1.4.1-cp35-cp35m-win_amd64.whl
 )
-pip3 install -r ..\python_requirements.txt
+pip3 install --no-cache-dir -r ..\python_requirements.txt
 
 
 
