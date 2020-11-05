@@ -35,6 +35,7 @@ if exist clipper (
 ) else (
 	git clone "https://github.com/MakerPi-3D/clipper"
 	cd clipper
+	git checkout --no-track -b B_6.4.2 6.4.2 --
 )
 git clean -df
 REM rd/s/q %BUILD_PATH%\clipper
@@ -55,8 +56,9 @@ if exist nlopt (
 	echo "git clone ==> nlopt already exists"
 	cd nlopt
 ) else (
-	git clone "https://github.com/Ultimaker2019/nlopt"
+	git clone "https://github.com/stevengj/nlopt"
 	cd nlopt
+	git checkout --no-track -b B_v2.6.2 v2.6.2 --
 )
 git clean -df
 REM rd/s/q %BUILD_PATH%\nlopt
@@ -72,7 +74,7 @@ REM *********************************************************************
 REM *********************** build libnest2d *****************************
 REM *********************************************************************
 set PATH=E:\compiler_tools\boost\msvc14\include\boost-1_69;%PATH%
-set Boost_INCLUDE_DIR=E:\compiler_tools\boost\msvc14\include\boost-1_69
+set Boost_INCLUDE_DIRS=E:\compiler_tools\boost\msvc14\include\boost-1_69
 set CLIPPER_PATH=%INSTALL_PATH%
 
 cd %SRC_PATH%
@@ -91,28 +93,6 @@ if not exist %BUILD_PATH%\libnest2d (
 )
 cd %BUILD_PATH%\libnest2d
 cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -DBUILD_SHARED_LIBS=OFF -DLIBNEST2D_HEADER_ONLY=OFF -Wno-dev -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/libnest2d
-nmake
-nmake install
-
-REM *********************************************************************
-REM *********************** build pynest2d ******************************
-REM *********************************************************************
-cd %SRC_PATH%
-echo "pynest2d clone and build..."
-if exist pynest2d (
-	echo "git clone ==> pynest2d already exists"
-	cd pynest2d
-) else (
-	git clone "https://github.com/Ultimaker2019/pynest2d"
-	cd pynest2d
-)
-git clean -df
-REM rd/s/q %BUILD_PATH%\pynest2d
-if not exist %BUILD_PATH%\pynest2d (
-	mkdir %BUILD_PATH%\pynest2d
-)
-cd %BUILD_PATH%\pynest2d
-cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH%  -DBOOST_INCLUDEDIR:PATH="%Boost_INCLUDE_DIR%" -G"NMake Makefiles" -Wno-dev -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/pynest2d
 nmake
 nmake install
 

@@ -11,6 +11,7 @@ if exist libArcus (
 	git clone "https://github.com/Ultimaker2019/libArcus"
 )
 cd libArcus
+git clean -df
 git pull
 git checkout %BUILD_VERSION%
 rd/s/q %BUILD_PATH%\libArcus
@@ -33,6 +34,7 @@ if exist libSavitar (
 	git clone "https://github.com/Ultimaker2019/libSavitar"
 )
 cd libSavitar
+git clean -df
 git pull
 git checkout %BUILD_VERSION%
 rd/s/q %BUILD_PATH%\libSavitar
@@ -44,4 +46,29 @@ cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -DCMAKE_BUILD_TY
 nmake 
 nmake install
 
+REM *********************************************************************
+REM *********************** build pynest2d ******************************
+REM *********************************************************************
+set PATH=E:\compiler_tools\boost\msvc14\include\boost-1_69;%PATH%
+set Boost_INCLUDE_DIRS=E:\compiler_tools\boost\msvc14\include\boost-1_69
+set CLIPPER_PATH=%INSTALL_PATH%
+cd %SRC_PATH%
+echo "pynest2d clone and build..."
+if exist pynest2d (
+	echo "git clone ==> pynest2d already exists"
+) else (
+	git clone "https://github.com/Ultimaker2019/pynest2d"
+)
+cd pynest2d
+git clean -df
+git pull
+git checkout %BUILD_VERSION%
+REM rd/s/q %BUILD_PATH%\pynest2d
+if not exist %BUILD_PATH%\pynest2d (
+	mkdir %BUILD_PATH%\pynest2d
+)
+cd %BUILD_PATH%\pynest2d
+cmake -DCMAKE_INSTALL_PREFIX=%INSTALL_PATH% -G"NMake Makefiles" -Wno-dev -DCMAKE_BUILD_TYPE=Release %SRC_PATH%/pynest2d
+nmake
+nmake install
 
