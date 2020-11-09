@@ -12,6 +12,7 @@ set PATH=%COMPILER_PATH%\program-files\CMake\bin;%PATH%
 set PATH=%COMPILER_PATH%\program-files\NSIS3;%PATH%
 set PATH=%COMPILER_PATH%\cygwin64\bin;%PATH%
 set PATH=%COMPILER_PATH%\mingw32\msys\1.0\bin;%PATH%
+set PATH=%COMPILER_PATH%\program-files\doxygen\bin;%PATH%
 
 REM python
 set PATH=%PYTHONPATH%;%PATH%

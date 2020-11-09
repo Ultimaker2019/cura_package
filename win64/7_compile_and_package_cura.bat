@@ -3,6 +3,9 @@ call 0_common.bat mingw32
 REM *********************************************************************
 REM *********************** build cura-build ****************************
 REM *********************************************************************
+set CURA_BINARY_DATA_DIRECTORY=F:/ultimaker/3_package/build_64/cura-binary-data-prefix/src/cura-binary-data
+set GETTEXT_MSGINIT_EXECUTABLE=E:/compiler_tools/mingw32/msys/1.0/bin/msginit.exe
+
 cd %SRC_PATH%
 echo "cura-build clone and build..."
 if exist cura-build (
