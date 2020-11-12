@@ -18,7 +18,47 @@ git pull
 git checkout %BUILD_VERSION%
 
 cd %CUR_PATH%\..\..
-mkdir %PACKAGE_PATH%\build_64
+
+if not exist %PACKAGE_PATH%\build_64 (
+	mkdir %PACKAGE_PATH%\build_64
+)
+
+if exist %PACKAGE_PATH%\build_64\cura-binary-data-prefix\src\cura-binary-data (
+	cd %PACKAGE_PATH%\build_64\cura-binary-data-prefix\src\cura-binary-data
+	git pull
+	git checkout %BUILD_VERSION%
+)
+
+if exist %PACKAGE_PATH%\build_64\CuraEngine-prefix\src\CuraEngine (
+	cd %PACKAGE_PATH%\build_64\CuraEngine-prefix\src\CuraEngine
+	git pull
+	git checkout %BUILD_VERSION%
+)
+
+if exist %PACKAGE_PATH%\build_64\Cura-prefix\src\Cura (
+	cd %PACKAGE_PATH%\build_64\Cura-prefix\src\Cura
+	git pull
+	git checkout %BUILD_VERSION%
+)
+
+if exist %PACKAGE_PATH%\build_64\fdm_materials-prefix\src\fdm_materials (
+	cd %PACKAGE_PATH%\build_64\fdm_materials-prefix\src\fdm_materials
+	git pull
+	git checkout %BUILD_VERSION%
+)
+
+if exist %PACKAGE_PATH%\build_64\libCharon-prefix\src\libCharon (
+	cd %PACKAGE_PATH%\build_64\libCharon-prefix\src\libCharon
+	git pull
+	git checkout %BUILD_VERSION%
+)
+
+if exist %PACKAGE_PATH%\build_64\Uranium-prefix\src\Uranium (
+	cd %PACKAGE_PATH%\build_64\Uranium-prefix\src\Uranium
+	git pull
+	git checkout %BUILD_VERSION%
+)
+
 cd %PACKAGE_PATH%\build_64
 set PYTHONPATH=%cd%\inst\lib\python3.5\site-packages
 set PATH=%cd%\inst\bin;%PATH%
